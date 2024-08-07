@@ -43,27 +43,23 @@
 
         <label for="timezone">Select Timezone:</label>
         <select id="timezone" required>
+            <option value="TPE">TPE</option>
+            <option value="NZST">TPE</option>
             <option value="UTC">UTC</option>
             <option value="EST">EST</option>
             <option value="PST">PST</option>
-            <option value="GMT">GMT</option>
-            <option value="CET">CET</option>
-            <option value="IST">IST</option>
             <option value="JST">JST</option>
-            <option value="AEST">AEST</option>
         </select>
 
         <button onclick="convertTime()">Convert</button>
 
         <h3>Converted Times:</h3>
+        <p>UTC: <span id="tpeTime"></span></p>
+        <p>UTC: <span id="nzstTime"></span></p>
         <p>UTC: <span id="utcTime"></span></p>
         <p>EST: <span id="estTime"></span></p>
         <p>PST: <span id="pstTime"></span></p>
-        <p>GMT: <span id="gmtTime"></span></p>
-        <p>CET: <span id="cetTime"></span></p>
-        <p>IST: <span id="istTime"></span></p>
         <p>JST: <span id="jstTime"></span></p>
-        <p>AEST: <span id="aestTime"></span></p>
     </div>
 
    <script>
@@ -81,13 +77,11 @@
 
         const offsets = {
             UTC: 0,
+            TPE: 8,
+            NZST: 12,
             EST: -5,
             PST: -8,
-            GMT: 0,
-            CET: 1,
-            IST: 5.5,
             JST: 9,
-            AEST: 10
         };
 
         const convertedTimes = {};
@@ -96,17 +90,21 @@
         }
 
         document.getElementById('utcTime').textContent = convertedTimes.UTC;
+        document.getElementById('tpeTime').textContent = convertedTimes.UTC;
+        document.getElementById('nzstTime').textContent = convertedTimes.UTC;
         document.getElementById('estTime').textContent = convertedTimes.EST;
         document.getElementById('pstTime').textContent = convertedTimes.PST;
-        document.getElementById('gmtTime').textContent = convertedTimes.GMT;
-        document.getElementById('cetTime').textContent = convertedTimes.CET;
-        document.getElementById('istTime').textContent = convertedTimes.IST;
         document.getElementById('jstTime').textContent = convertedTimes.JST;
-        document.getElementById('aestTime').textContent = convertedTimes.AEST;
 
         switch (timezone) {
             case 'UTC':
                 document.getElementById('utcTime').textContent = time;
+                break;
+            case 'TPE':
+                document.getElementById('tpeTime').textContent = time;
+                break;
+            case 'NZST':
+                document.getElementById('nzstTime').textContent = time;
                 break;
             case 'EST':
                 document.getElementById('estTime').textContent = time;
@@ -114,20 +112,8 @@
             case 'PST':
                 document.getElementById('pstTime').textContent = time;
                 break;
-            case 'GMT':
-                document.getElementById('gmtTime').textContent = time;
-                break;
-            case 'CET':
-                document.getElementById('cetTime').textContent = time;
-                break;
-            case 'IST':
-                document.getElementById('istTime').textContent = time;
-                break;
             case 'JST':
                 document.getElementById('jstTime').textContent = time;
-                break;
-            case 'AEST':
-                document.getElementById('aestTime').textContent = time;
                 break;
         }
     }
