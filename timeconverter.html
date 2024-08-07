@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label, input, select {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Time Converter</h2>
+        <label for="time">Enter Time (HH:MM):</label>
+        <input type="time" id="time" required>
+
+        <label for="timezone">Select Timezone:</label>
+        <select id="timezone" required>
+            <option value="UTC">UTC</option>
+            <option value="EST">EST</option>
+            <option value="PST">PST</option>
+            <option value="GMT">GMT</option>
+            <option value="CET">CET</option>
+            <option value="IST">IST</option>
+            <option value="JST">JST</option>
+            <option value="AEST">AEST</option>
+        </select>
+
+        <button onclick="convertTime()">Convert</button>
+
+        <h3>Converted Times:</h3>
+        <p>UTC: <span id="utcTime"></span></p>
+        <p>EST: <span id="estTime"></span></p>
+        <p>PST: <span id="pstTime"></span></p>
+        <p>GMT: <span id="gmtTime"></span></p>
+        <p>CET: <span id="cetTime"></span></p>
+        <p>IST: <span id="istTime"></span></p>
+        <p>JST: <span id="jstTime"></span></p>
+        <p>AEST: <span id="aestTime"></span></p>
+    </div>
+
+   <script>
+    function convertTime() {
+        const time = document.getElementById('time').value;
+        const timezone = document.getElementById('timezone').value;
+        if (!time) {
+            alert('Please enter a time');
+            return;
+        }
+
+        let [hours, minutes] = time.split(':').map(Number);
+        let date = new Date();
+        date.setUTCHours(hours, minutes);
+
+        const offsets = {
+            UTC: 0,
+            EST: -5,
+            PST: -8,
+            GMT: 0,
+            CET: 1,
+            IST: 5.5,
+            JST: 9,
+            AEST: 10
+        };
+
+        const convertedTimes = {};
+        for (const [zone, offset] of Object.entries(offsets)) {
+            convertedTimes[zone] = convertToTimezone(date, offset);
+        }
+
+        document.getElementById('utcTime').textContent = convertedTimes.UTC;
+        document.getElementById('estTime').textContent = convertedTimes.EST;
+        document.getElementById('pstTime').textContent = convertedTimes.PST;
+        document.getElementById('gmtTime').textContent = convertedTimes.GMT;
+        document.getElementById('cetTime').textContent = convertedTimes.CET;
+        document.getElementById('istTime').textContent = convertedTimes.IST;
+        document.getElementById('jstTime').textContent = convertedTimes.JST;
+        document.getElementById('aestTime').textContent = convertedTimes.AEST;
+
+        switch (timezone) {
+            case 'UTC':
+                document.getElementById('utcTime').textContent = time;
+                break;
+            case 'EST':
+                document.getElementById('estTime').textContent = time;
+                break;
+            case 'PST':
+                document.getElementById('pstTime').textContent = time;
+                break;
+            case 'GMT':
+                document.getElementById('gmtTime').textContent = time;
+                break;
+            case 'CET':
+                document.getElementById('cetTime').textContent = time;
+                break;
+            case 'IST':
+                document.getElementById('istTime').textContent = time;
+                break;
+            case 'JST':
+                document.getElementById('jstTime').textContent = time;
+                break;
+            case 'AEST':
+                document.getElementById('aestTime').textContent = time;
+                break;
+        }
+    }
+
+    function convertToTimezone(date, offset) {
+        const newTime = new Date(date.getTime() + offset * 60 * 60 * 1000);
+        return newTime.toTimeString().slice(0, 5);
+    }
+</script>
+
+</body>
+</html>
