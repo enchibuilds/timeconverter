@@ -43,9 +43,9 @@
 
         <label for="timezone">Select Timezone:</label>
         <select id="timezone" required>
+            <option value="UTC">UTC</option>
             <option value="TPE">TPE</option>
             <option value="NZST">TPE</option>
-            <option value="UTC">UTC</option>
             <option value="EST">EST</option>
             <option value="PST">PST</option>
             <option value="JST">JST</option>
@@ -54,9 +54,9 @@
         <button onclick="convertTime()">Convert</button>
 
         <h3>Converted Times:</h3>
+        <p>UTC: <span id="utcTime"></span></p>
         <p>UTC: <span id="tpeTime"></span></p>
         <p>UTC: <span id="nzstTime"></span></p>
-        <p>UTC: <span id="utcTime"></span></p>
         <p>EST: <span id="estTime"></span></p>
         <p>PST: <span id="pstTime"></span></p>
         <p>JST: <span id="jstTime"></span></p>
